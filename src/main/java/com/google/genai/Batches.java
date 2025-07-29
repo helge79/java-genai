@@ -1095,6 +1095,60 @@ public final class Batches {
               toObject));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"systemInstruction"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"request", "systemInstruction"},
+          contentToMldev(
+              JsonSerializable.toJsonNode(
+                  Transformers.tContent(
+                      Common.getValueByPath(fromObject, new String[] {"systemInstruction"}))),
+              toObject));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"safetySettings"}) != null) {
+      ArrayNode keyArray =
+          (ArrayNode) Common.getValueByPath(fromObject, new String[] {"safetySettings"});
+      ObjectMapper objectMapper = new ObjectMapper();
+      ArrayNode result = objectMapper.createArrayNode();
+
+      for (JsonNode item : keyArray) {
+        result.add(safetySettingToMldev(JsonSerializable.toJsonNode(item), toObject));
+      }
+      Common.setValueByPath(toObject, new String[] {"request", "safetySettings"}, result);
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"tools"}) != null) {
+      ArrayNode keyArray =
+          (ArrayNode)
+              Transformers.tTools(Common.getValueByPath(fromObject, new String[] {"tools"}));
+      ObjectMapper objectMapper = new ObjectMapper();
+      ArrayNode result = objectMapper.createArrayNode();
+
+      for (JsonNode item : keyArray) {
+        result.add(toolToMldev(JsonSerializable.toJsonNode(Transformers.tTool(item)), toObject));
+      }
+      Common.setValueByPath(toObject, new String[] {"request", "tools"}, result);
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"toolConfig"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"request", "toolConfig"},
+          toolConfigToMldev(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"toolConfig"})),
+              toObject));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"cachedContent"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"request", "cachedContent"},
+          Transformers.tCachedContentName(
+              this.apiClient, Common.getValueByPath(fromObject, new String[] {"cachedContent"})));
+    }
+
     return toObject;
   }
 

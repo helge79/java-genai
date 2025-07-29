@@ -48,6 +48,27 @@ public abstract class InlinedRequest extends JsonSerializable {
   @JsonProperty("config")
   public abstract Optional<GenerateContentConfig> config();
 
+  /** Developer set system instruction. */
+  @JsonProperty("systemInstruction")
+  public abstract Optional<Content> systemInstruction();
+
+  /** A list of `Tools` the model may use to generate the next response. */
+  @JsonProperty("tools")
+  public abstract Optional<List<Tool>> tools();
+
+  /** Configuration for the tools to use. This config is shared for all tools. */
+  @JsonProperty("toolConfig")
+  public abstract Optional<ToolConfig> toolConfig();
+
+  /** Safety settings in the request to block unsafe content in the response. */
+  @JsonProperty("safetySettings")
+  public abstract Optional<List<SafetySetting>> safetySettings();
+
+  /** Resource name of a context cache that can be used in subsequent requests. */
+  @JsonProperty("cachedContent")
+  public abstract Optional<String> cachedContent();
+
+
   /** Instantiates a builder for InlinedRequest. */
   public static Builder builder() {
     return new AutoValue_InlinedRequest.Builder();
@@ -119,6 +140,106 @@ public abstract class InlinedRequest extends JsonSerializable {
     public Builder config(GenerateContentConfig.Builder configBuilder) {
       return config(configBuilder.build());
     }
+
+    /**
+     * Setter for systemInstruction.
+     *
+     * <p>systemInstruction: Developer set system instruction.
+     */
+    @JsonProperty("systemInstruction")
+    public abstract Builder systemInstruction(Content systemInstruction);
+
+    /**
+     * Setter for systemInstruction builder.
+     *
+     * <p>systemInstruction: Developer set system instruction.
+     */
+    public Builder systemInstruction(Content.Builder systemInstructionBuilder) {
+      return systemInstruction(systemInstructionBuilder.build());
+    }
+
+    /**
+     * Setter for tools.
+     *
+     * <p>tools: A list of `Tools` the model may use to generate the next response.
+     */
+    @JsonProperty("tools")
+    public abstract Builder tools(List<Tool> tools);
+
+    /**
+     * Setter for tools.
+     *
+     * <p>tools: A list of `Tools` the model may use to generate the next response.
+     */
+    public Builder tools(Tool... tools) {
+      return tools(Arrays.asList(tools));
+    }
+
+    /**
+     * Setter for tools builder.
+     *
+     * <p>tools: A list of `Tools` the model may use to generate the next response.
+     */
+    public Builder tools(Tool.Builder... toolsBuilders) {
+      return tools(
+          Arrays.asList(toolsBuilders).stream()
+              .map(Tool.Builder::build)
+              .collect(toImmutableList()));
+    }
+
+    /**
+     * Setter for toolConfig.
+     *
+     * <p>toolConfig: Configuration for the tools to use. This config is shared for all tools.
+     */
+    @JsonProperty("toolConfig")
+    public abstract Builder toolConfig(ToolConfig toolConfig);
+
+    /**
+     * Setter for toolConfig builder.
+     *
+     * <p>toolConfig: Configuration for the tools to use. This config is shared for all tools.
+     */
+    public Builder toolConfig(ToolConfig.Builder toolConfigBuilder) {
+      return toolConfig(toolConfigBuilder.build());
+    }
+
+    /**
+     * Setter for safetySettings.
+     *
+     * <p>safetySettings: Safety settings in the request to block unsafe content in the response.
+     */
+    @JsonProperty("safetySettings")
+    public abstract Builder safetySettings(List<SafetySetting> safetySettings);
+
+    /**
+     * Setter for safetySettings.
+     *
+     * <p>safetySettings: Safety settings in the request to block unsafe content in the response.
+     */
+    public Builder safetySettings(SafetySetting... safetySettings) {
+      return safetySettings(Arrays.asList(safetySettings));
+    }
+
+    /**
+     * Setter for safetySettings builder.
+     *
+     * <p>safetySettings: Safety settings in the request to block unsafe content in the response.
+     */
+    public Builder safetySettings(SafetySetting.Builder... safetySettingsBuilders) {
+      return safetySettings(
+          Arrays.asList(safetySettingsBuilders).stream()
+              .map(SafetySetting.Builder::build)
+              .collect(toImmutableList()));
+    }
+    
+    /**
+     * Setter for cachedContent.
+     *
+     * <p>cachedContent: Resource name of a context cache that can be used in subsequent requests.
+     */
+    @JsonProperty("cachedContent")
+    public abstract Builder cachedContent(String cachedContent);
 
     public abstract InlinedRequest build();
   }
