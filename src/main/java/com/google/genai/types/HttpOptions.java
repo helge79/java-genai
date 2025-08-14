@@ -46,7 +46,16 @@ public abstract class HttpOptions extends JsonSerializable {
   @JsonProperty("timeout")
   public abstract Optional<Integer> timeout();
 
+  /**
+   * Extra parameters to add to the request body. The structure must match the backend API's request
+   * structure. - VertexAI backend API docs: https://cloud.google.com/vertex-ai/docs/reference/rest
+   * - GeminiAPI backend API docs: https://ai.google.dev/api/rest
+   */
+  @JsonProperty("extraBody")
+  public abstract Optional<Map<String, Object>> extraBody();
+
   /** Instantiates a builder for HttpOptions. */
+  @ExcludeFromGeneratedCoverageReport
   public static Builder builder() {
     return new AutoValue_HttpOptions.Builder();
   }
@@ -95,10 +104,22 @@ public abstract class HttpOptions extends JsonSerializable {
     @JsonProperty("timeout")
     public abstract Builder timeout(Integer timeout);
 
+    /**
+     * Setter for extraBody.
+     *
+     * <p>extraBody: Extra parameters to add to the request body. The structure must match the
+     * backend API's request structure. - VertexAI backend API docs:
+     * https://cloud.google.com/vertex-ai/docs/reference/rest - GeminiAPI backend API docs:
+     * https://ai.google.dev/api/rest
+     */
+    @JsonProperty("extraBody")
+    public abstract Builder extraBody(Map<String, Object> extraBody);
+
     public abstract HttpOptions build();
   }
 
   /** Deserializes a JSON string to a HttpOptions object. */
+  @ExcludeFromGeneratedCoverageReport
   public static HttpOptions fromJson(String jsonString) {
     return JsonSerializable.fromJsonString(jsonString, HttpOptions.class);
   }

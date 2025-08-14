@@ -82,10 +82,6 @@ public abstract class Tool extends JsonSerializable {
   @JsonIgnore
   public abstract Optional<List<Method>> functions();
 
-  /** Optional. CodeExecution tool type. Enables the model to execute code as part of generation. */
-  @JsonProperty("codeExecution")
-  public abstract Optional<ToolCodeExecution> codeExecution();
-
   /**
    * Optional. Tool to support the model interacting directly with the computer. If enabled, it
    * automatically populates computer-use specific Function Declarations.
@@ -93,7 +89,12 @@ public abstract class Tool extends JsonSerializable {
   @JsonProperty("computerUse")
   public abstract Optional<ToolComputerUse> computerUse();
 
+  /** Optional. CodeExecution tool type. Enables the model to execute code as part of generation. */
+  @JsonProperty("codeExecution")
+  public abstract Optional<ToolCodeExecution> codeExecution();
+
   /** Instantiates a builder for Tool. */
+  @ExcludeFromGeneratedCoverageReport
   public static Builder builder() {
     return new AutoValue_Tool.Builder();
   }
@@ -275,25 +276,6 @@ public abstract class Tool extends JsonSerializable {
     }
 
     /**
-     * Setter for codeExecution.
-     *
-     * <p>codeExecution: Optional. CodeExecution tool type. Enables the model to execute code as
-     * part of generation.
-     */
-    @JsonProperty("codeExecution")
-    public abstract Builder codeExecution(ToolCodeExecution codeExecution);
-
-    /**
-     * Setter for codeExecution builder.
-     *
-     * <p>codeExecution: Optional. CodeExecution tool type. Enables the model to execute code as
-     * part of generation.
-     */
-    public Builder codeExecution(ToolCodeExecution.Builder codeExecutionBuilder) {
-      return codeExecution(codeExecutionBuilder.build());
-    }
-
-    /**
      * Setter for computerUse.
      *
      * <p>computerUse: Optional. Tool to support the model interacting directly with the computer.
@@ -312,10 +294,30 @@ public abstract class Tool extends JsonSerializable {
       return computerUse(computerUseBuilder.build());
     }
 
+    /**
+     * Setter for codeExecution.
+     *
+     * <p>codeExecution: Optional. CodeExecution tool type. Enables the model to execute code as
+     * part of generation.
+     */
+    @JsonProperty("codeExecution")
+    public abstract Builder codeExecution(ToolCodeExecution codeExecution);
+
+    /**
+     * Setter for codeExecution builder.
+     *
+     * <p>codeExecution: Optional. CodeExecution tool type. Enables the model to execute code as
+     * part of generation.
+     */
+    public Builder codeExecution(ToolCodeExecution.Builder codeExecutionBuilder) {
+      return codeExecution(codeExecutionBuilder.build());
+    }
+
     public abstract Tool build();
   }
 
   /** Deserializes a JSON string to a Tool object. */
+  @ExcludeFromGeneratedCoverageReport
   public static Tool fromJson(String jsonString) {
     return JsonSerializable.fromJsonString(jsonString, Tool.class);
   }

@@ -33,11 +33,16 @@ public abstract class TuningDataStats extends JsonSerializable {
   @JsonProperty("distillationDataStats")
   public abstract Optional<DistillationDataStats> distillationDataStats();
 
+  /** Output only. Statistics for preference optimization. */
+  @JsonProperty("preferenceOptimizationDataStats")
+  public abstract Optional<PreferenceOptimizationDataStats> preferenceOptimizationDataStats();
+
   /** The SFT Tuning data stats. */
   @JsonProperty("supervisedTuningDataStats")
   public abstract Optional<SupervisedTuningDataStats> supervisedTuningDataStats();
 
   /** Instantiates a builder for TuningDataStats. */
+  @ExcludeFromGeneratedCoverageReport
   public static Builder builder() {
     return new AutoValue_TuningDataStats.Builder();
   }
@@ -73,6 +78,25 @@ public abstract class TuningDataStats extends JsonSerializable {
     }
 
     /**
+     * Setter for preferenceOptimizationDataStats.
+     *
+     * <p>preferenceOptimizationDataStats: Output only. Statistics for preference optimization.
+     */
+    @JsonProperty("preferenceOptimizationDataStats")
+    public abstract Builder preferenceOptimizationDataStats(
+        PreferenceOptimizationDataStats preferenceOptimizationDataStats);
+
+    /**
+     * Setter for preferenceOptimizationDataStats builder.
+     *
+     * <p>preferenceOptimizationDataStats: Output only. Statistics for preference optimization.
+     */
+    public Builder preferenceOptimizationDataStats(
+        PreferenceOptimizationDataStats.Builder preferenceOptimizationDataStatsBuilder) {
+      return preferenceOptimizationDataStats(preferenceOptimizationDataStatsBuilder.build());
+    }
+
+    /**
      * Setter for supervisedTuningDataStats.
      *
      * <p>supervisedTuningDataStats: The SFT Tuning data stats.
@@ -95,6 +119,7 @@ public abstract class TuningDataStats extends JsonSerializable {
   }
 
   /** Deserializes a JSON string to a TuningDataStats object. */
+  @ExcludeFromGeneratedCoverageReport
   public static TuningDataStats fromJson(String jsonString) {
     return JsonSerializable.fromJsonString(jsonString, TuningDataStats.class);
   }

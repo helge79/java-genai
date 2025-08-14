@@ -70,6 +70,7 @@ public abstract class InlinedRequest extends JsonSerializable {
 
 
   /** Instantiates a builder for InlinedRequest. */
+  @ExcludeFromGeneratedCoverageReport
   public static Builder builder() {
     return new AutoValue_InlinedRequest.Builder();
   }
@@ -245,6 +246,7 @@ public abstract class InlinedRequest extends JsonSerializable {
   }
 
   /** Deserializes a JSON string to a InlinedRequest object. */
+  @ExcludeFromGeneratedCoverageReport
   public static InlinedRequest fromJson(String jsonString) {
     return JsonSerializable.fromJsonString(jsonString, InlinedRequest.class);
   }

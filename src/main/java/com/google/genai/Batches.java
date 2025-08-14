@@ -509,6 +509,11 @@ public final class Batches {
               toObject));
     }
 
+    if (!Common.isZero(Common.getValueByPath(fromObject, new String[] {"excludeDomains"}))) {
+      throw new IllegalArgumentException(
+          "excludeDomains parameter is not supported in Gemini API.");
+    }
+
     return toObject;
   }
 
@@ -551,6 +556,19 @@ public final class Batches {
   @ExcludeFromGeneratedCoverageReport
   ObjectNode urlContextToMldev(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
+  ObjectNode toolComputerUseToMldev(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"environment"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"environment"},
+          Common.getValueByPath(fromObject, new String[] {"environment"}));
+    }
 
     return toObject;
   }
@@ -613,18 +631,21 @@ public final class Batches {
               toObject));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"computerUse"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"computerUse"},
+          toolComputerUseToMldev(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"computerUse"})),
+              toObject));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"codeExecution"}) != null) {
       Common.setValueByPath(
           toObject,
           new String[] {"codeExecution"},
           Common.getValueByPath(fromObject, new String[] {"codeExecution"}));
-    }
-
-    if (Common.getValueByPath(fromObject, new String[] {"computerUse"}) != null) {
-      Common.setValueByPath(
-          toObject,
-          new String[] {"computerUse"},
-          Common.getValueByPath(fromObject, new String[] {"computerUse"}));
     }
 
     return toObject;
@@ -1943,6 +1964,13 @@ public final class Batches {
           Common.getValueByPath(fromObject, new String[] {"promptFeedback"}));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"responseId"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"responseId"},
+          Common.getValueByPath(fromObject, new String[] {"responseId"}));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"usageMetadata"}) != null) {
       Common.setValueByPath(
           toObject,
@@ -2130,6 +2158,7 @@ public final class Batches {
   @ExcludeFromGeneratedCoverageReport
   ObjectNode deleteResourceJobFromMldev(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+
     if (Common.getValueByPath(fromObject, new String[] {"name"}) != null) {
       Common.setValueByPath(
           toObject,
@@ -2361,6 +2390,7 @@ public final class Batches {
   @ExcludeFromGeneratedCoverageReport
   ObjectNode deleteResourceJobFromVertex(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+
     if (Common.getValueByPath(fromObject, new String[] {"name"}) != null) {
       Common.setValueByPath(
           toObject,

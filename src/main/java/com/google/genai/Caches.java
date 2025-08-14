@@ -324,6 +324,11 @@ public final class Caches {
               toObject));
     }
 
+    if (!Common.isZero(Common.getValueByPath(fromObject, new String[] {"excludeDomains"}))) {
+      throw new IllegalArgumentException(
+          "excludeDomains parameter is not supported in Gemini API.");
+    }
+
     return toObject;
   }
 
@@ -366,6 +371,19 @@ public final class Caches {
   @ExcludeFromGeneratedCoverageReport
   ObjectNode urlContextToMldev(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
+  ObjectNode toolComputerUseToMldev(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"environment"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"environment"},
+          Common.getValueByPath(fromObject, new String[] {"environment"}));
+    }
 
     return toObject;
   }
@@ -428,18 +446,21 @@ public final class Caches {
               toObject));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"computerUse"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"computerUse"},
+          toolComputerUseToMldev(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"computerUse"})),
+              toObject));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"codeExecution"}) != null) {
       Common.setValueByPath(
           toObject,
           new String[] {"codeExecution"},
           Common.getValueByPath(fromObject, new String[] {"codeExecution"}));
-    }
-
-    if (Common.getValueByPath(fromObject, new String[] {"computerUse"}) != null) {
-      Common.setValueByPath(
-          toObject,
-          new String[] {"computerUse"},
-          Common.getValueByPath(fromObject, new String[] {"computerUse"}));
     }
 
     return toObject;
@@ -1036,6 +1057,13 @@ public final class Caches {
               toObject));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"excludeDomains"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"excludeDomains"},
+          Common.getValueByPath(fromObject, new String[] {"excludeDomains"}));
+    }
+
     return toObject;
   }
 
@@ -1078,6 +1106,12 @@ public final class Caches {
   @ExcludeFromGeneratedCoverageReport
   ObjectNode enterpriseWebSearchToVertex(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"excludeDomains"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"excludeDomains"},
+          Common.getValueByPath(fromObject, new String[] {"excludeDomains"}));
+    }
 
     return toObject;
   }
@@ -1170,6 +1204,19 @@ public final class Caches {
   }
 
   @ExcludeFromGeneratedCoverageReport
+  ObjectNode toolComputerUseToVertex(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"environment"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"environment"},
+          Common.getValueByPath(fromObject, new String[] {"environment"}));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
   ObjectNode toolToVertex(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
     if (Common.getValueByPath(fromObject, new String[] {"functionDeclarations"}) != null) {
@@ -1241,18 +1288,21 @@ public final class Caches {
               toObject));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"computerUse"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"computerUse"},
+          toolComputerUseToVertex(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"computerUse"})),
+              toObject));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"codeExecution"}) != null) {
       Common.setValueByPath(
           toObject,
           new String[] {"codeExecution"},
           Common.getValueByPath(fromObject, new String[] {"codeExecution"}));
-    }
-
-    if (Common.getValueByPath(fromObject, new String[] {"computerUse"}) != null) {
-      Common.setValueByPath(
-          toObject,
-          new String[] {"computerUse"},
-          Common.getValueByPath(fromObject, new String[] {"computerUse"}));
     }
 
     return toObject;

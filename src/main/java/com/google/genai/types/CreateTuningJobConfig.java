@@ -67,6 +67,10 @@ public abstract class CreateTuningJobConfig extends JsonSerializable {
   @JsonProperty("exportLastCheckpointOnly")
   public abstract Optional<Boolean> exportLastCheckpointOnly();
 
+  /** The optional checkpoint id of the pre-tuned model to use for tuning, if applicable. */
+  @JsonProperty("preTunedModelCheckpointId")
+  public abstract Optional<String> preTunedModelCheckpointId();
+
   /** Adapter size for tuning. */
   @JsonProperty("adapterSize")
   public abstract Optional<AdapterSize> adapterSize();
@@ -86,6 +90,7 @@ public abstract class CreateTuningJobConfig extends JsonSerializable {
   public abstract Optional<Float> learningRate();
 
   /** Instantiates a builder for CreateTuningJobConfig. */
+  @ExcludeFromGeneratedCoverageReport
   public static Builder builder() {
     return new AutoValue_CreateTuningJobConfig.Builder();
   }
@@ -183,6 +188,15 @@ public abstract class CreateTuningJobConfig extends JsonSerializable {
     public abstract Builder exportLastCheckpointOnly(boolean exportLastCheckpointOnly);
 
     /**
+     * Setter for preTunedModelCheckpointId.
+     *
+     * <p>preTunedModelCheckpointId: The optional checkpoint id of the pre-tuned model to use for
+     * tuning, if applicable.
+     */
+    @JsonProperty("preTunedModelCheckpointId")
+    public abstract Builder preTunedModelCheckpointId(String preTunedModelCheckpointId);
+
+    /**
      * Setter for adapterSize.
      *
      * <p>adapterSize: Adapter size for tuning.
@@ -232,6 +246,7 @@ public abstract class CreateTuningJobConfig extends JsonSerializable {
   }
 
   /** Deserializes a JSON string to a CreateTuningJobConfig object. */
+  @ExcludeFromGeneratedCoverageReport
   public static CreateTuningJobConfig fromJson(String jsonString) {
     return JsonSerializable.fromJsonString(jsonString, CreateTuningJobConfig.class);
   }
