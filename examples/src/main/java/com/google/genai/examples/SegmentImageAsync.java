@@ -37,25 +37,23 @@
  *
  * <p>mvn clean compile
  *
- * <p>mvn exec:java
- * -Dexec.mainClass="com.google.genai.examples.GenerateContentWithResponseJsonSchema"
+ * <p>mvn exec:java -Dexec.mainClass="com.google.genai.examples.SegmentImage"
  * -Dexec.args="YOUR_MODEL_ID"
  */
 package com.google.genai.examples;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.genai.Client;
-import com.google.genai.types.GenerateContentConfig;
-import com.google.genai.types.GenerateContentResponse;
+import com.google.genai.types.Image;
+import com.google.genai.types.SegmentImageConfig;
+import com.google.genai.types.SegmentImageResponse;
+import com.google.genai.types.SegmentImageSource;
+import com.google.genai.types.SegmentMode;
+import java.util.concurrent.CompletableFuture;
 
-/**
- * GenerateContentWithResponseJsonSchema generates a content and returns a json object by passing a
- * schema.
- */
-public final class GenerateContentWithResponseJsonSchema {
+/** An example of using the Unified Gen AI Java SDK to segment an image asynchronously. */
+public final class SegmentImageAsync {
   public static void main(String[] args) {
-    String modelId = "gemini-2.0-flash-001";
+    String modelId = "image-segmentation-001";
     if (args.length != 0) {
       modelId = args[0];
     }
@@ -76,29 +74,26 @@ public final class GenerateContentWithResponseJsonSchema {
       System.out.println("Using Gemini Developer API");
     }
 
-    ImmutableMap<String, Object> schema = ImmutableMap.of(
-        "type", "object",
-        "properties", ImmutableMap.of(
-            "recipe_name", ImmutableMap.of("type", "string"),
-            "ingredients", ImmutableMap.of(
-                "type", "array",
-                "items", ImmutableMap.of("type", "string")
-            )
-        ),
-        "required", ImmutableList.of("recipe_name", "ingredients")
-    );
-    GenerateContentConfig config =
-        GenerateContentConfig.builder()
-            .responseMimeType("application/json")
-            .candidateCount(1)
-            .responseJsonSchema(schema)
-            .build();
+    // Base image created using generateImages with prompt:
+    // "A square, circle, and triangle with a white background"
+    Image image = Image.fromFile("./resources/shapes.jpg");
 
-    GenerateContentResponse response =
-        client.models.generateContent(modelId, "List a few popular cookie recipes.", config);
+    // Control reference.
+    SegmentImageConfig segmentImageConfig =
+        SegmentImageConfig.builder().mode(SegmentMode.Known.FOREGROUND).build();
 
-    System.out.println("Response: " + response.text());
+    CompletableFuture<SegmentImageResponse> segmentImageResponseFuture =
+        client.async.models.segmentImage(
+            modelId, SegmentImageSource.builder().image(image).build(), segmentImageConfig);
+
+    segmentImageResponseFuture
+        .thenAccept(
+            segmentImageResponse -> {
+              Image maskImage = segmentImageResponse.generatedMasks().get().get(0).mask().get();
+              // Do something with maskImage.
+            })
+        .join();
   }
 
-  private GenerateContentWithResponseJsonSchema() {}
+  private SegmentImageAsync() {}
 }
