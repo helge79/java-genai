@@ -27,6 +27,7 @@ import com.google.auto.value.AutoValue;
 import com.google.genai.JsonSerializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /** Config for inlined request. */
@@ -67,6 +68,10 @@ public abstract class InlinedRequest extends JsonSerializable {
   /** Resource name of a context cache that can be used in subsequent requests. */
   @JsonProperty("cachedContent")
   public abstract Optional<String> cachedContent();
+
+  /** Optional metadata associated with the request as key-value pairs. */
+  @JsonProperty("metadata")
+  public abstract Optional<Map<String, Object>> metadata();
 
 
   /** Instantiates a builder for InlinedRequest. */
@@ -241,6 +246,13 @@ public abstract class InlinedRequest extends JsonSerializable {
      */
     @JsonProperty("cachedContent")
     public abstract Builder cachedContent(String cachedContent);
+
+    /**
+     * Setter for metadata.
+     * <p>metadata: Optional metadata associated with the request as key-value pairs.
+     */
+    @JsonProperty("metadata")
+    public abstract Builder metadata(Map<String, Object> metadata);
 
     public abstract InlinedRequest build();
   }

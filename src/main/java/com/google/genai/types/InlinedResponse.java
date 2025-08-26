@@ -20,9 +20,12 @@ package com.google.genai.types;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
 import com.google.genai.JsonSerializable;
+
+import java.util.Map;
 import java.util.Optional;
 
 /** Config for `inlined_responses` parameter. */
@@ -36,6 +39,10 @@ public abstract class InlinedResponse extends JsonSerializable {
   /** The error encountered while processing the request. */
   @JsonProperty("error")
   public abstract Optional<JobError> error();
+
+/** Optional metadata associated with the response as key-value pairs. */
+  @JsonProperty("metadata") 
+  public abstract Optional<Map<String, Object>> metadata();
 
   /** Instantiates a builder for InlinedResponse. */
   @ExcludeFromGeneratedCoverageReport
@@ -88,6 +95,13 @@ public abstract class InlinedResponse extends JsonSerializable {
     public Builder error(JobError.Builder errorBuilder) {
       return error(errorBuilder.build());
     }
+
+    /**
+     * Setter for metadata.
+     * <p>metadata: Optional metadata associated with the response as key-value pairs.
+     */
+    @JsonProperty("metadata")
+    public abstract Builder metadata(Map<String, Object> metadata);
 
     public abstract InlinedResponse build();
   }

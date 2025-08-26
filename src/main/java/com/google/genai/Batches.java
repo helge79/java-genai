@@ -1174,6 +1174,13 @@ public final class Batches {
               this.apiClient, Common.getValueByPath(fromObject, new String[] {"cachedContent"})));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"metadata"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"metadata"},
+          Common.getValueByPath(fromObject, new String[] {"metadata"}));
+    }
+
     return toObject;
   }
 
@@ -2035,6 +2042,14 @@ public final class Batches {
               toObject));
     }
 
+    // Transform metadata field (NEW)
+    if (Common.getValueByPath(fromObject, new String[] {"metadata"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"metadata"},
+          Common.getValueByPath(fromObject, new String[] {"metadata"}));
+    }
+    
     return toObject;
   }
 
