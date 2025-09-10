@@ -23,6 +23,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.genai.errors.GenAiIOException;
+import com.google.genai.types.CancelTuningJobConfig;
+import com.google.genai.types.CancelTuningJobParameters;
 import com.google.genai.types.CreateTuningJobConfig;
 import com.google.genai.types.CreateTuningJobParametersPrivate;
 import com.google.genai.types.GetTuningJobConfig;
@@ -111,6 +113,26 @@ public final class Tunings {
               JsonSerializable.toJsonNode(
                   Common.getValueByPath(fromObject, new String[] {"config"})),
               toObject));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
+  ObjectNode cancelTuningJobParametersToMldev(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"name"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"_url", "name"},
+          Common.getValueByPath(fromObject, new String[] {"name"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"config"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"config"},
+          Common.getValueByPath(fromObject, new String[] {"config"}));
     }
 
     return toObject;
@@ -226,6 +248,10 @@ public final class Tunings {
           Common.getValueByPath(fromObject, new String[] {"learningRate"}));
     }
 
+    if (!Common.isZero(Common.getValueByPath(fromObject, new String[] {"labels"}))) {
+      throw new IllegalArgumentException("labels parameter is not supported in Gemini API.");
+    }
+
     return toObject;
   }
 
@@ -328,6 +354,26 @@ public final class Tunings {
               JsonSerializable.toJsonNode(
                   Common.getValueByPath(fromObject, new String[] {"config"})),
               toObject));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
+  ObjectNode cancelTuningJobParametersToVertex(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"name"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"_url", "name"},
+          Common.getValueByPath(fromObject, new String[] {"name"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"config"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"config"},
+          Common.getValueByPath(fromObject, new String[] {"config"}));
     }
 
     return toObject;
@@ -446,6 +492,13 @@ public final class Tunings {
 
     if (!Common.isZero(Common.getValueByPath(fromObject, new String[] {"learningRate"}))) {
       throw new IllegalArgumentException("learningRate parameter is not supported in Vertex AI.");
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"labels"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"labels"},
+          Common.getValueByPath(fromObject, new String[] {"labels"}));
     }
 
     return toObject;
@@ -1125,6 +1178,57 @@ public final class Tunings {
           .sdkHttpResponse(HttpResponse.builder().headers(headers))
           .build();
     }
+  }
+
+  /**
+   * Cancels a tuning job resource.
+   *
+   * @param name The resource name of the tuning job. For Vertex, this is the full resource name.
+   *     For Gemini API, this is `tunedModels/{id}`.
+   * @param config A {@link CancelTuningJobConfig} for configuring the cancel request.
+   */
+  public void cancel(String name, CancelTuningJobConfig config) {
+
+    CancelTuningJobParameters.Builder parameterBuilder = CancelTuningJobParameters.builder();
+
+    if (!Common.isZero(name)) {
+      parameterBuilder.name(name);
+    }
+    if (!Common.isZero(config)) {
+      parameterBuilder.config(config);
+    }
+    JsonNode parameterNode = JsonSerializable.toJsonNode(parameterBuilder.build());
+
+    ObjectNode body;
+    String path;
+    if (this.apiClient.vertexAI()) {
+      body = cancelTuningJobParametersToVertex(parameterNode, null);
+      path = Common.formatMap("{name}:cancel", body.get("_url"));
+    } else {
+      body = cancelTuningJobParametersToMldev(parameterNode, null);
+      if (body.get("_url") != null) {
+        path = Common.formatMap("{name}:cancel", body.get("_url"));
+      } else {
+        path = "{name}:cancel";
+      }
+    }
+    body.remove("_url");
+
+    JsonNode queryParams = body.get("_query");
+    if (queryParams != null) {
+      body.remove("_query");
+      path = String.format("%s?%s", path, Common.urlEncode((ObjectNode) queryParams));
+    }
+
+    // TODO: Remove the hack that removes config.
+    body.remove("config");
+
+    Optional<HttpOptions> requestHttpOptions = Optional.empty();
+    if (config != null) {
+      requestHttpOptions = config.httpOptions();
+    }
+
+    this.apiClient.request("post", path, JsonSerializable.toJsonString(body), requestHttpOptions);
   }
 
   TuningJob privateTune(

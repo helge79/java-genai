@@ -40,6 +40,10 @@ public abstract class UpscaleImageAPIConfig extends JsonSerializable {
   @JsonProperty("httpOptions")
   public abstract Optional<HttpOptions> httpOptions();
 
+  /** Cloud Storage URI used to store the generated images. */
+  @JsonProperty("outputGcsUri")
+  public abstract Optional<String> outputGcsUri();
+
   /** Whether to include a reason for filtered-out images in the response. */
   @JsonProperty("includeRaiReason")
   public abstract Optional<Boolean> includeRaiReason();
@@ -48,7 +52,7 @@ public abstract class UpscaleImageAPIConfig extends JsonSerializable {
   @JsonProperty("outputMimeType")
   public abstract Optional<String> outputMimeType();
 
-  /** The level of compression if the ``output_mime_type`` is ``image/jpeg``. */
+  /** The level of compression. Only applicable if the ``output_mime_type`` is ``image/jpeg``. */
   @JsonProperty("outputCompressionQuality")
   public abstract Optional<Integer> outputCompressionQuality();
 
@@ -111,6 +115,14 @@ public abstract class UpscaleImageAPIConfig extends JsonSerializable {
     }
 
     /**
+     * Setter for outputGcsUri.
+     *
+     * <p>outputGcsUri: Cloud Storage URI used to store the generated images.
+     */
+    @JsonProperty("outputGcsUri")
+    public abstract Builder outputGcsUri(String outputGcsUri);
+
+    /**
      * Setter for includeRaiReason.
      *
      * <p>includeRaiReason: Whether to include a reason for filtered-out images in the response.
@@ -129,8 +141,8 @@ public abstract class UpscaleImageAPIConfig extends JsonSerializable {
     /**
      * Setter for outputCompressionQuality.
      *
-     * <p>outputCompressionQuality: The level of compression if the ``output_mime_type`` is
-     * ``image/jpeg``.
+     * <p>outputCompressionQuality: The level of compression. Only applicable if the
+     * ``output_mime_type`` is ``image/jpeg``.
      */
     @JsonProperty("outputCompressionQuality")
     public abstract Builder outputCompressionQuality(Integer outputCompressionQuality);

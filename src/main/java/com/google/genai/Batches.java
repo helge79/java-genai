@@ -132,6 +132,31 @@ public final class Batches {
   }
 
   @ExcludeFromGeneratedCoverageReport
+  ObjectNode functionCallToMldev(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"id"}) != null) {
+      Common.setValueByPath(
+          toObject, new String[] {"id"}, Common.getValueByPath(fromObject, new String[] {"id"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"args"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"args"},
+          Common.getValueByPath(fromObject, new String[] {"args"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"name"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"name"},
+          Common.getValueByPath(fromObject, new String[] {"name"}));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
   ObjectNode partToMldev(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
     if (Common.getValueByPath(fromObject, new String[] {"videoMetadata"}) != null) {
@@ -178,6 +203,16 @@ public final class Batches {
           Common.getValueByPath(fromObject, new String[] {"thoughtSignature"}));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"functionCall"},
+          functionCallToMldev(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"functionCall"})),
+              toObject));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"codeExecutionResult"}) != null) {
       Common.setValueByPath(
           toObject,
@@ -190,13 +225,6 @@ public final class Batches {
           toObject,
           new String[] {"executableCode"},
           Common.getValueByPath(fromObject, new String[] {"executableCode"}));
-    }
-
-    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
-      Common.setValueByPath(
-          toObject,
-          new String[] {"functionCall"},
-          Common.getValueByPath(fromObject, new String[] {"functionCall"}));
     }
 
     if (Common.getValueByPath(fromObject, new String[] {"functionResponse"}) != null) {
@@ -1695,6 +1723,31 @@ public final class Batches {
   }
 
   @ExcludeFromGeneratedCoverageReport
+  ObjectNode functionCallFromMldev(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"id"}) != null) {
+      Common.setValueByPath(
+          toObject, new String[] {"id"}, Common.getValueByPath(fromObject, new String[] {"id"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"args"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"args"},
+          Common.getValueByPath(fromObject, new String[] {"args"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"name"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"name"},
+          Common.getValueByPath(fromObject, new String[] {"name"}));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
   ObjectNode partFromMldev(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
     if (Common.getValueByPath(fromObject, new String[] {"videoMetadata"}) != null) {
@@ -1741,6 +1794,16 @@ public final class Batches {
           Common.getValueByPath(fromObject, new String[] {"thoughtSignature"}));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"functionCall"},
+          functionCallFromMldev(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"functionCall"})),
+              toObject));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"codeExecutionResult"}) != null) {
       Common.setValueByPath(
           toObject,
@@ -1753,13 +1816,6 @@ public final class Batches {
           toObject,
           new String[] {"executableCode"},
           Common.getValueByPath(fromObject, new String[] {"executableCode"}));
-    }
-
-    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
-      Common.setValueByPath(
-          toObject,
-          new String[] {"functionCall"},
-          Common.getValueByPath(fromObject, new String[] {"functionCall"}));
     }
 
     if (Common.getValueByPath(fromObject, new String[] {"functionResponse"}) != null) {
@@ -2054,6 +2110,68 @@ public final class Batches {
   }
 
   @ExcludeFromGeneratedCoverageReport
+  ObjectNode contentEmbeddingFromMldev(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"values"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"values"},
+          Common.getValueByPath(fromObject, new String[] {"values"}));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
+  ObjectNode singleEmbedContentResponseFromMldev(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"embedding"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"embedding"},
+          contentEmbeddingFromMldev(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"embedding"})),
+              toObject));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"tokenCount"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"tokenCount"},
+          Common.getValueByPath(fromObject, new String[] {"tokenCount"}));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
+  ObjectNode inlinedEmbedContentResponseFromMldev(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"response"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"response"},
+          singleEmbedContentResponseFromMldev(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"response"})),
+              toObject));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"error"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"error"},
+          jobErrorFromMldev(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"error"})),
+              toObject));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
   ObjectNode batchJobDestinationFromMldev(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
 
@@ -2141,7 +2259,8 @@ public final class Batches {
           new String[] {"dest"},
           batchJobDestinationFromMldev(
               JsonSerializable.toJsonNode(
-                  Common.getValueByPath(fromObject, new String[] {"metadata", "output"})),
+                  Transformers.tRecvBatchJobDestination(
+                      Common.getValueByPath(fromObject, new String[] {"metadata", "output"}))),
               toObject));
     }
 
@@ -2385,7 +2504,8 @@ public final class Batches {
           new String[] {"dest"},
           batchJobDestinationFromVertex(
               JsonSerializable.toJsonNode(
-                  Common.getValueByPath(fromObject, new String[] {"outputConfig"})),
+                  Transformers.tRecvBatchJobDestination(
+                      Common.getValueByPath(fromObject, new String[] {"outputConfig"}))),
               toObject));
     }
 
@@ -2831,7 +2951,7 @@ public final class Batches {
         throw new GenAiIOException("Only one of fileName and InlinedRequests can be set.");
       }
       if (!src.fileName().isPresent() && !src.inlinedRequests().isPresent()) {
-        throw new GenAiIOException("One of fileName and InlinedRequests must be set.");
+        throw new GenAiIOException("one of fileName and InlinedRequests must be set.");
       }
     }
     return this.privateCreate(model, src, config);

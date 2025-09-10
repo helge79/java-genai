@@ -635,7 +635,7 @@ public class AsyncModelsTest {
     // Act
     if (vertexAI) {
       CompletableFuture<UpscaleImageResponse> responseFuture =
-          client.async.models.upscaleImage("imagen-3.0-generate-001", image, "x2", config);
+          client.async.models.upscaleImage("imagen-3.0-generate-002", image, "x2", config);
       UpscaleImageResponse response = responseFuture.join();
 
       // Assert
@@ -668,7 +668,7 @@ public class AsyncModelsTest {
 
     GenerateVideosConfig.Builder configBuilder = GenerateVideosConfig.builder();
     if (vertexAI) {
-      configBuilder.outputGcsUri("gs://unified-genai-tests/tmp/genai/video/outputs");
+      configBuilder.outputGcsUri("gs://genai-sdk-tests/temp/videos/");
     }
     GenerateVideosConfig config = configBuilder.build();
 

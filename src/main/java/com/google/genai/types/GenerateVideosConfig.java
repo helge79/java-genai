@@ -83,10 +83,7 @@ public abstract class GenerateVideosConfig extends JsonSerializable {
   @JsonProperty("pubsubTopic")
   public abstract Optional<String> pubsubTopic();
 
-  /**
-   * Optional field in addition to the text content. Negative prompts can be explicitly stated here
-   * to help generate the video.
-   */
+  /** Explicitly state what should not be included in the generated videos. */
   @JsonProperty("negativePrompt")
   public abstract Optional<String> negativePrompt();
 
@@ -113,6 +110,10 @@ public abstract class GenerateVideosConfig extends JsonSerializable {
    */
   @JsonProperty("referenceImages")
   public abstract Optional<List<VideoGenerationReferenceImage>> referenceImages();
+
+  /** The mask to use for generating videos. */
+  @JsonProperty("mask")
+  public abstract Optional<VideoGenerationMask> mask();
 
   /** Compression quality of the generated videos. */
   @JsonProperty("compressionQuality")
@@ -232,8 +233,7 @@ public abstract class GenerateVideosConfig extends JsonSerializable {
     /**
      * Setter for negativePrompt.
      *
-     * <p>negativePrompt: Optional field in addition to the text content. Negative prompts can be
-     * explicitly stated here to help generate the video.
+     * <p>negativePrompt: Explicitly state what should not be included in the generated videos.
      */
     @JsonProperty("negativePrompt")
     public abstract Builder negativePrompt(String negativePrompt);
@@ -310,6 +310,23 @@ public abstract class GenerateVideosConfig extends JsonSerializable {
           Arrays.asList(referenceImagesBuilders).stream()
               .map(VideoGenerationReferenceImage.Builder::build)
               .collect(toImmutableList()));
+    }
+
+    /**
+     * Setter for mask.
+     *
+     * <p>mask: The mask to use for generating videos.
+     */
+    @JsonProperty("mask")
+    public abstract Builder mask(VideoGenerationMask mask);
+
+    /**
+     * Setter for mask builder.
+     *
+     * <p>mask: The mask to use for generating videos.
+     */
+    public Builder mask(VideoGenerationMask.Builder maskBuilder) {
+      return mask(maskBuilder.build());
     }
 
     /**

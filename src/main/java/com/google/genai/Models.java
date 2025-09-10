@@ -179,6 +179,31 @@ public final class Models {
   }
 
   @ExcludeFromGeneratedCoverageReport
+  ObjectNode functionCallToMldev(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"id"}) != null) {
+      Common.setValueByPath(
+          toObject, new String[] {"id"}, Common.getValueByPath(fromObject, new String[] {"id"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"args"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"args"},
+          Common.getValueByPath(fromObject, new String[] {"args"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"name"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"name"},
+          Common.getValueByPath(fromObject, new String[] {"name"}));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
   ObjectNode partToMldev(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
     if (Common.getValueByPath(fromObject, new String[] {"videoMetadata"}) != null) {
@@ -225,6 +250,16 @@ public final class Models {
           Common.getValueByPath(fromObject, new String[] {"thoughtSignature"}));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"functionCall"},
+          functionCallToMldev(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"functionCall"})),
+              toObject));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"codeExecutionResult"}) != null) {
       Common.setValueByPath(
           toObject,
@@ -237,13 +272,6 @@ public final class Models {
           toObject,
           new String[] {"executableCode"},
           Common.getValueByPath(fromObject, new String[] {"executableCode"}));
-    }
-
-    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
-      Common.setValueByPath(
-          toObject,
-          new String[] {"functionCall"},
-          Common.getValueByPath(fromObject, new String[] {"functionCall"}));
     }
 
     if (Common.getValueByPath(fromObject, new String[] {"functionResponse"}) != null) {
@@ -1684,8 +1712,11 @@ public final class Models {
           Common.getValueByPath(fromObject, new String[] {"aspectRatio"}));
     }
 
-    if (!Common.isZero(Common.getValueByPath(fromObject, new String[] {"resolution"}))) {
-      throw new IllegalArgumentException("resolution parameter is not supported in Gemini API.");
+    if (Common.getValueByPath(fromObject, new String[] {"resolution"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "resolution"},
+          Common.getValueByPath(fromObject, new String[] {"resolution"}));
     }
 
     if (Common.getValueByPath(fromObject, new String[] {"personGeneration"}) != null) {
@@ -1724,6 +1755,10 @@ public final class Models {
     if (!Common.isZero(Common.getValueByPath(fromObject, new String[] {"referenceImages"}))) {
       throw new IllegalArgumentException(
           "referenceImages parameter is not supported in Gemini API.");
+    }
+
+    if (!Common.isZero(Common.getValueByPath(fromObject, new String[] {"mask"}))) {
+      throw new IllegalArgumentException("mask parameter is not supported in Gemini API.");
     }
 
     if (!Common.isZero(Common.getValueByPath(fromObject, new String[] {"compressionQuality"}))) {
@@ -1870,6 +1905,31 @@ public final class Models {
   }
 
   @ExcludeFromGeneratedCoverageReport
+  ObjectNode functionCallToVertex(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"id"}) != null) {
+      Common.setValueByPath(
+          toObject, new String[] {"id"}, Common.getValueByPath(fromObject, new String[] {"id"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"args"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"args"},
+          Common.getValueByPath(fromObject, new String[] {"args"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"name"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"name"},
+          Common.getValueByPath(fromObject, new String[] {"name"}));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
   ObjectNode partToVertex(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
     if (Common.getValueByPath(fromObject, new String[] {"videoMetadata"}) != null) {
@@ -1916,6 +1976,16 @@ public final class Models {
           Common.getValueByPath(fromObject, new String[] {"thoughtSignature"}));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"functionCall"},
+          functionCallToVertex(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"functionCall"})),
+              toObject));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"codeExecutionResult"}) != null) {
       Common.setValueByPath(
           toObject,
@@ -1928,13 +1998,6 @@ public final class Models {
           toObject,
           new String[] {"executableCode"},
           Common.getValueByPath(fromObject, new String[] {"executableCode"}));
-    }
-
-    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
-      Common.setValueByPath(
-          toObject,
-          new String[] {"functionCall"},
-          Common.getValueByPath(fromObject, new String[] {"functionCall"}));
     }
 
     if (Common.getValueByPath(fromObject, new String[] {"functionResponse"}) != null) {
@@ -3521,6 +3584,13 @@ public final class Models {
   ObjectNode upscaleImageAPIConfigToVertex(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
 
+    if (Common.getValueByPath(fromObject, new String[] {"outputGcsUri"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "storageUri"},
+          Common.getValueByPath(fromObject, new String[] {"outputGcsUri"}));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"includeRaiReason"}) != null) {
       Common.setValueByPath(
           parentObject,
@@ -4249,6 +4319,29 @@ public final class Models {
   }
 
   @ExcludeFromGeneratedCoverageReport
+  ObjectNode videoGenerationMaskToVertex(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"image"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"_self"},
+          imageToVertex(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"image"})),
+              toObject));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"maskMode"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"maskMode"},
+          Common.getValueByPath(fromObject, new String[] {"maskMode"}));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
   ObjectNode generateVideosConfigToVertex(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
 
@@ -4357,6 +4450,15 @@ public final class Models {
             videoGenerationReferenceImageToVertex(JsonSerializable.toJsonNode(item), toObject));
       }
       Common.setValueByPath(parentObject, new String[] {"instances[0]", "referenceImages"}, result);
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"mask"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"instances[0]", "mask"},
+          videoGenerationMaskToVertex(
+              JsonSerializable.toJsonNode(Common.getValueByPath(fromObject, new String[] {"mask"})),
+              toObject));
     }
 
     if (Common.getValueByPath(fromObject, new String[] {"compressionQuality"}) != null) {
@@ -4527,6 +4629,31 @@ public final class Models {
   }
 
   @ExcludeFromGeneratedCoverageReport
+  ObjectNode functionCallFromMldev(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"id"}) != null) {
+      Common.setValueByPath(
+          toObject, new String[] {"id"}, Common.getValueByPath(fromObject, new String[] {"id"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"args"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"args"},
+          Common.getValueByPath(fromObject, new String[] {"args"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"name"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"name"},
+          Common.getValueByPath(fromObject, new String[] {"name"}));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
   ObjectNode partFromMldev(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
     if (Common.getValueByPath(fromObject, new String[] {"videoMetadata"}) != null) {
@@ -4573,6 +4700,16 @@ public final class Models {
           Common.getValueByPath(fromObject, new String[] {"thoughtSignature"}));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"functionCall"},
+          functionCallFromMldev(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"functionCall"})),
+              toObject));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"codeExecutionResult"}) != null) {
       Common.setValueByPath(
           toObject,
@@ -4585,13 +4722,6 @@ public final class Models {
           toObject,
           new String[] {"executableCode"},
           Common.getValueByPath(fromObject, new String[] {"executableCode"}));
-    }
-
-    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
-      Common.setValueByPath(
-          toObject,
-          new String[] {"functionCall"},
-          Common.getValueByPath(fromObject, new String[] {"functionCall"}));
     }
 
     if (Common.getValueByPath(fromObject, new String[] {"functionResponse"}) != null) {
@@ -5367,6 +5497,31 @@ public final class Models {
   }
 
   @ExcludeFromGeneratedCoverageReport
+  ObjectNode functionCallFromVertex(JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"id"}) != null) {
+      Common.setValueByPath(
+          toObject, new String[] {"id"}, Common.getValueByPath(fromObject, new String[] {"id"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"args"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"args"},
+          Common.getValueByPath(fromObject, new String[] {"args"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"name"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"name"},
+          Common.getValueByPath(fromObject, new String[] {"name"}));
+    }
+
+    return toObject;
+  }
+
+  @ExcludeFromGeneratedCoverageReport
   ObjectNode partFromVertex(JsonNode fromObject, ObjectNode parentObject) {
     ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
     if (Common.getValueByPath(fromObject, new String[] {"videoMetadata"}) != null) {
@@ -5413,6 +5568,16 @@ public final class Models {
           Common.getValueByPath(fromObject, new String[] {"thoughtSignature"}));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"functionCall"},
+          functionCallFromVertex(
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"functionCall"})),
+              toObject));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"codeExecutionResult"}) != null) {
       Common.setValueByPath(
           toObject,
@@ -5425,13 +5590,6 @@ public final class Models {
           toObject,
           new String[] {"executableCode"},
           Common.getValueByPath(fromObject, new String[] {"executableCode"}));
-    }
-
-    if (Common.getValueByPath(fromObject, new String[] {"functionCall"}) != null) {
-      Common.setValueByPath(
-          toObject,
-          new String[] {"functionCall"},
-          Common.getValueByPath(fromObject, new String[] {"functionCall"}));
     }
 
     if (Common.getValueByPath(fromObject, new String[] {"functionResponse"}) != null) {
@@ -6450,6 +6608,22 @@ public final class Models {
         throw new GenAiIOException("Failed to read HTTP response.", e);
       }
 
+      if (config != null && config.shouldReturnHttpResponse().orElse(false)) {
+        Headers responseHeaders = response.getHeaders();
+        if (responseHeaders == null) {
+          return GenerateContentResponse.builder()
+              .sdkHttpResponse(HttpResponse.builder().body(responseString))
+              .build();
+        }
+        Map<String, String> headers = new HashMap<>();
+        for (String headerName : responseHeaders.names()) {
+          headers.put(headerName, responseHeaders.get(headerName));
+        }
+        return GenerateContentResponse.builder()
+            .sdkHttpResponse(HttpResponse.builder().headers(headers).body(responseString))
+            .build();
+      }
+
       JsonNode responseNode = JsonSerializable.stringToJsonNode(responseString);
       if (this.apiClient.vertexAI()) {
         responseNode = generateContentResponseFromVertex(responseNode, null);
@@ -6611,6 +6785,7 @@ public final class Models {
     }
   }
 
+  /** Private method for generating images. */
   GenerateImagesResponse privateGenerateImages(
       String model, String prompt, GenerateImagesConfig config) {
 
@@ -6690,6 +6865,7 @@ public final class Models {
     }
   }
 
+  /** Private method for editing an image. */
   EditImageResponse privateEditImage(
       String model,
       String prompt,
@@ -6772,6 +6948,7 @@ public final class Models {
     }
   }
 
+  /** Private method for upscaling an image. */
   UpscaleImageResponse privateUpscaleImage(
       String model, Image image, String upscaleFactor, UpscaleImageAPIConfig config) {
 
@@ -7477,22 +7654,7 @@ public final class Models {
     }
   }
 
-  /**
-   * Generates videos given a GenAI model, and an input (text, image, or video).
-   *
-   * <p>This method is experimental.
-   *
-   * @param model the name of the GenAI model to use for generating videos
-   * @param prompt the text prompt for generating the videos. Optional for image to video and video
-   *     extension use cases.
-   * @param image the input image for generating the videos. Optional if prompt is provided.
-   * @param video the input video for video extension use cases. Optional if prompt or image is
-   *     provided.
-   * @param config a {@link com.google.genai.types.GenerateVideosConfig} instance that specifies the
-   *     optional configurations
-   * @return a {@link com.google.genai.types.GenerateVideosOperation} instance that contains the
-   *     generated videos.
-   */
+  /** Private method for generating videos. */
   GenerateVideosOperation privateGenerateVideos(
       String model,
       String prompt,
@@ -7843,6 +8005,9 @@ public final class Models {
 
     UpscaleImageAPIConfig.Builder builder = UpscaleImageAPIConfig.builder();
     if (config != null) {
+      if (config.outputGcsUri().isPresent()) {
+        builder = builder.outputGcsUri(config.outputGcsUri().get());
+      }
       if (config.outputMimeType().isPresent()) {
         builder = builder.outputMimeType(config.outputMimeType().get());
       }
