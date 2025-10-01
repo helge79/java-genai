@@ -19,6 +19,8 @@ package com.google.genai;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.genai.errors.GenAiIOException;
+import com.google.genai.types.HttpOptions;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -26,14 +28,28 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.StringJoiner;
 import org.jspecify.annotations.Nullable;
-import com.google.genai.errors.GenAiIOException;
 
 /** Common utility methods for the GenAI SDK. */
 final class Common {
 
   private Common() {}
+
+  /** A class that holds the path, body, and http options of an API request. */
+  static class BuiltRequest {
+    final String path;
+    final String body;
+    final Optional<HttpOptions> httpOptions;
+
+    /** Constructor for BuiltRequest. */
+    BuiltRequest(String path, String body, Optional<HttpOptions> httpOptions) {
+      this.path = path;
+      this.body = body;
+      this.httpOptions = httpOptions;
+    }
+  }
 
   /**
    * Sets the value of an object by a path.
@@ -119,8 +135,20 @@ final class Common {
    * <p>getValueByPath({'a': {'b': [{'c': v1}, {'c': v2}]}}, ['a', 'b[]', 'c']) -> [v1, v2]
    */
   static @Nullable Object getValueByPath(JsonNode object, String[] keys) {
+    return getValueByPath(object, keys, null);
+  }
+
+  /**
+   * Gets the value of an object by a path, returning a default value if the path does not exist.
+   *
+   * <p>getValueByPath({'a': {'b': v}}, ['a', 'b'], 'default') -> v
+   *
+   * <p>getValueByPath({'a': {'c': v}}, ['a', 'b'], 'default') -> 'default'
+   */
+  static @Nullable Object getValueByPath(
+      JsonNode object, String[] keys, @Nullable Object defaultValue) {
     if (object == null || keys == null) {
-      return null;
+      return defaultValue;
     }
     if (keys.length == 1 && keys[0].equals("_self")) {
       return object;
@@ -131,7 +159,7 @@ final class Common {
       String key = keys[i];
 
       if (currentObject == null) {
-        return null;
+        return defaultValue;
       }
 
       if (key.endsWith("[]")) {
@@ -146,14 +174,16 @@ final class Common {
           ArrayNode result = JsonSerializable.objectMapper.createArrayNode();
           for (JsonNode element : arrayNode) {
             JsonNode node =
-                (JsonNode) getValueByPath(element, Arrays.copyOfRange(keys, i + 1, keys.length));
+                (JsonNode)
+                    getValueByPath(
+                        element, Arrays.copyOfRange(keys, i + 1, keys.length), defaultValue);
             if (node != null) {
               result.add(node);
             }
           }
           return result;
         } else {
-          return null;
+          return defaultValue;
         }
       } else if (key.endsWith("[0]")) {
         String keyName = key.substring(0, key.length() - 3);
@@ -163,13 +193,13 @@ final class Common {
             && ((ArrayNode) ((ObjectNode) currentObject).get(keyName)).size() > 0) {
           currentObject = ((ArrayNode) ((ObjectNode) currentObject).get(keyName)).get(0);
         } else {
-          return null;
+          return defaultValue;
         }
       } else {
         if (currentObject.isObject() && ((ObjectNode) currentObject).has(key)) {
           currentObject = ((ObjectNode) currentObject).get(key);
         } else {
-          return null;
+          return defaultValue;
         }
       }
     }

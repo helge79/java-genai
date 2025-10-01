@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.19.0](https://github.com/googleapis/java-genai/compare/v1.18.0...v1.19.0) (2025-09-30)
+
+
+### Features
+
+* expose session id in Live API ([b6d5389](https://github.com/googleapis/java-genai/commit/b6d5389899bd1443d5c508776dfe5909eb1d7400))
+* rename ComputerUse tool (early access) ([4bbba2b](https://github.com/googleapis/java-genai/commit/4bbba2b53eedec0b28a5d98d7fc193683c565f50))
+
+## [1.18.0](https://github.com/googleapis/java-genai/compare/v1.17.0...v1.18.0) (2025-09-25)
+
+
+### Features
+
+* Add FunctionResponsePart & ToolComputerUse.excludedPredefinedFunctions ([1a24bed](https://github.com/googleapis/java-genai/commit/1a24bedc752851236b0a7239a7dba7090e4ac4e8))
+* Support Imagen 4 Ingredients on Vertex ([b5eed8d](https://github.com/googleapis/java-genai/commit/b5eed8d1323a3d37b53c1d8c5c5557392ce7ed44))
+
+
+### Bug Fixes
+
+* Expose `JOB_STATE_RUNNING` and `JOB_STATE_EXPIRED` for Gemini Batches states ([c5b4fdf](https://github.com/googleapis/java-genai/commit/c5b4fdf58b9d0d74efdd2c7e740bed8b6b661c99))
+* initialization of `pre_tuned_model_checkpoint_id` from tuning config. ([c293633](https://github.com/googleapis/java-genai/commit/c293633a8fe298668f030ba3b257347a8fd0eedf))
+* Make async generateContent and generateContentStream truly non-blocking ([5cb18fd](https://github.com/googleapis/java-genai/commit/5cb18fd4f07f9b1f21efb82fe961e473325f6257))
+* only run unit tests in github action ([9b2861b](https://github.com/googleapis/java-genai/commit/9b2861bb79d50c10c152aa010bedf0bc48a04ad8))
+
 ## [1.17.0](https://github.com/googleapis/java-genai/compare/v1.16.0...v1.17.0) (2025-09-16)
 
 

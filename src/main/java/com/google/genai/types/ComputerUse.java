@@ -24,32 +24,43 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.genai.JsonSerializable;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /** Tool to support computer use. */
 @AutoValue
-@JsonDeserialize(builder = ToolComputerUse.Builder.class)
-public abstract class ToolComputerUse extends JsonSerializable {
+@JsonDeserialize(builder = ComputerUse.Builder.class)
+public abstract class ComputerUse extends JsonSerializable {
   /** Required. The environment being operated. */
   @JsonProperty("environment")
   public abstract Optional<Environment> environment();
 
-  /** Instantiates a builder for ToolComputerUse. */
+  /**
+   * By default, predefined functions are included in the final model call. Some of them can be
+   * explicitly excluded from being automatically included. This can serve two purposes: 1. Using a
+   * more restricted / different action space. 2. Improving the definitions / instructions of
+   * predefined functions.
+   */
+  @JsonProperty("excludedPredefinedFunctions")
+  public abstract Optional<List<String>> excludedPredefinedFunctions();
+
+  /** Instantiates a builder for ComputerUse. */
   @ExcludeFromGeneratedCoverageReport
   public static Builder builder() {
-    return new AutoValue_ToolComputerUse.Builder();
+    return new AutoValue_ComputerUse.Builder();
   }
 
   /** Creates a builder with the same values as this instance. */
   public abstract Builder toBuilder();
 
-  /** Builder for ToolComputerUse. */
+  /** Builder for ComputerUse. */
   @AutoValue.Builder
   public abstract static class Builder {
-    /** For internal usage. Please use `ToolComputerUse.builder()` for instantiation. */
+    /** For internal usage. Please use `ComputerUse.builder()` for instantiation. */
     @JsonCreator
     private static Builder create() {
-      return new AutoValue_ToolComputerUse.Builder();
+      return new AutoValue_ComputerUse.Builder();
     }
 
     /**
@@ -80,12 +91,35 @@ public abstract class ToolComputerUse extends JsonSerializable {
       return environment(new Environment(environment));
     }
 
-    public abstract ToolComputerUse build();
+    /**
+     * Setter for excludedPredefinedFunctions.
+     *
+     * <p>excludedPredefinedFunctions: By default, predefined functions are included in the final
+     * model call. Some of them can be explicitly excluded from being automatically included. This
+     * can serve two purposes: 1. Using a more restricted / different action space. 2. Improving the
+     * definitions / instructions of predefined functions.
+     */
+    @JsonProperty("excludedPredefinedFunctions")
+    public abstract Builder excludedPredefinedFunctions(List<String> excludedPredefinedFunctions);
+
+    /**
+     * Setter for excludedPredefinedFunctions.
+     *
+     * <p>excludedPredefinedFunctions: By default, predefined functions are included in the final
+     * model call. Some of them can be explicitly excluded from being automatically included. This
+     * can serve two purposes: 1. Using a more restricted / different action space. 2. Improving the
+     * definitions / instructions of predefined functions.
+     */
+    public Builder excludedPredefinedFunctions(String... excludedPredefinedFunctions) {
+      return excludedPredefinedFunctions(Arrays.asList(excludedPredefinedFunctions));
+    }
+
+    public abstract ComputerUse build();
   }
 
-  /** Deserializes a JSON string to a ToolComputerUse object. */
+  /** Deserializes a JSON string to a ComputerUse object. */
   @ExcludeFromGeneratedCoverageReport
-  public static ToolComputerUse fromJson(String jsonString) {
-    return JsonSerializable.fromJsonString(jsonString, ToolComputerUse.class);
+  public static ComputerUse fromJson(String jsonString) {
+    return JsonSerializable.fromJsonString(jsonString, ComputerUse.class);
   }
 }
